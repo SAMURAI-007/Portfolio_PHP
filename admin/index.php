@@ -1,9 +1,17 @@
 <?php
 include "../admin/dbconfig/config.php";
 
+if($_SESSION['login'] == false){
+    header("location:../index.php");
+}
+
 $admin = $conn->prepare("SELECT * FROM admin");
 $admin->execute();
 $admin_display = $admin->fetchAll(PDO::FETCH_ASSOC);
+
+if(isset($_POST['logout'])){
+    header("location:logout.php");
+}
 
 ?>
 
@@ -14,6 +22,9 @@ $admin_display = $admin->fetchAll(PDO::FETCH_ASSOC);
     <title>Document</title>
 </head>
 <body>
+    <form method="post">
+        <input type="submit" value="logout" name="logout" >
+    </form>
     
 </body>
 </html>

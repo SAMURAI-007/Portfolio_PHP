@@ -1,3 +1,27 @@
+<?php
+include "../admin/dbconfig/config.php";
+
+if (isset($_POST['sub'])) {
+
+    $admin = $conn->prepare("SELECT * FROM admin");
+    $admin->execute();
+    $admin_display = $admin->fetchAll(PDO::FETCH_ASSOC);
+
+
+    $username = $_POST['uname'];
+    $password = $_POST['pass'];
+
+    foreach ($admin_display as $admins) {
+        if ($admins['username'] == $username and $admins['password'] == $password) {
+            $_SESSION['login'] = true;
+            header("location:index.php");
+        }
+    }
+}
+
+?>
+
+
 <html lang="en">
 
 <head>
@@ -27,22 +51,22 @@
                     </div>
 
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                        <form style="width: 23rem;">
+                        <form method="post" style="width: 23rem;">
 
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
 
                             <div class="form-outline mb-4">
-                                <input type="email" id="form2Example18" class="form-control form-control-lg" />
+                                <input name="uname" type="text" id="form2Example18" class="form-control form-control-lg" />
                                 <label class="form-label" for="form2Example18">Email address</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input type="password" id="form2Example28" class="form-control form-control-lg" />
+                                <input name="pass" type="password" id="form2Example28" class="form-control form-control-lg" />
                                 <label class="form-label" for="form2Example28">Password</label>
                             </div>
 
                             <div class="pt-1 mb-4">
-                                <button class="btn btn-info btn-lg btn-block" type="button">Login</button>
+                                <button class="btn btn-info btn-lg btn-block" name="sub" type="submit">Login</button>
                             </div>
 
                             <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
@@ -65,5 +89,10 @@
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
 
 </html>
