@@ -12881,3 +12881,7 @@ html {
     height: 100%;
   }
 }
+.admin-form input{
+  border-radius: 5%;
+
+}

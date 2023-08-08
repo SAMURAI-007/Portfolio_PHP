@@ -27,6 +27,7 @@ if (isset($_POST['logout'])) {
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../css/styles.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -36,26 +37,40 @@ if (isset($_POST['logout'])) {
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Admin dashboard</a>
+            <span class="navbar-brand" href="#">Admin dashboard</span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="logout.php">logout</a>
+                        <a class="btn btn-dark" aria-current="page" href="logout.php">logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <br>
-    <h3>portfolio management</h3>
-    <form method="post" action="posted.php" class="form-control">
-        <input type="text" placeholder="">
+    <div class="container">
+        <h3>portfolio management</h3>
+        <br>
+        <form method="post" action="posted.php" class="form-control admin-form">
+            <h4>new portfolio item</h4>
+            <div style="margin-bottom: 10px;">
+                <input type="text" placeholder="Title" style="margin-right: 10px;">
+                <input type="text" placeholder="image URL">
+            </div>
 
-    </form>
+            <br>
+            <div id="editor"></div>
 
 </body>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
 </html>
