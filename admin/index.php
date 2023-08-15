@@ -13,6 +13,23 @@ if (isset($_POST['logout'])) {
     header("location:logout.php");
 }
 
+if (isset($_POST['sub'])) {
+
+    $Title= $_POST['Title'];
+    $image= $_POST['image'];
+    $content= $_POST['content'];
+
+    $new = $conn->prepare("INSERT INTO `portfolio item` (`title`, `image`, `content`) VALUES (? , ?, ?)");
+    $new->bindValue(1, $Title);
+    $new->bindValue(2, $image);
+    $new->bindValue(3, $content);
+    $new->execute();
+    $item_display = $new->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+
 ?>
 
 <html lang="en">
@@ -27,10 +44,10 @@ if (isset($_POST['logout'])) {
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../css/styles.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/ckeditor/ckeditor.js"></script>
     <title>admin dashboard</title>
 </head>
 
@@ -51,26 +68,26 @@ if (isset($_POST['logout'])) {
         </div>
     </nav>
     <br>
-    <div class="container">
+    <div class="container" style="padding-right: 400px;">
         <h3>portfolio management</h3>
         <br>
-        <form method="post" action="posted.php" class="form-control admin-form">
+        <form method="post" class="form-control admin-form">
             <h4>new portfolio item</h4>
             <div style="margin-bottom: 10px;">
-                <input type="text" placeholder="Title" style="margin-right: 10px;">
-                <input type="text" placeholder="image URL">
+                <input type="text" name="Title" placeholder="Title" style="margin-right: 10px;">
+                <input type="text" name="image" placeholder="image URL">
             </div>
 
             <br>
-            <div id="editor"></div>
+            <textarea name="content"></textarea>
+            <br>
+            <input type="submit" name="sub" class="btn btn-primary">
 
+    </div>
 </body>
+
 <script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error);
-        });
+    CKEDITOR.replace('content');
 </script>
 
 </html>
