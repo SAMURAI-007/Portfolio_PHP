@@ -4,6 +4,6 @@
 
 # images :
 <img src="portfolio1.png" width="80%" height="50%"></img>
-<img src="portfolio2-.png" width="80%" height="50%"></img>
+<img src="portfolio2.png" width="80%" height="50%"></img>
 
 
