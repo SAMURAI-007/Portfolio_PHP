@@ -15,17 +15,21 @@ if (isset($_POST['logout'])) {
 
 if (isset($_POST['sub'])) {
 
-    $Title= $_POST['Title'];
-    $image= $_POST['image'];
-    $content= $_POST['content'];
+    $Title = $_POST['Title'];
+    $image = $_POST['image'];
+    $content = $_POST['content'];
 
     $new = $conn->prepare("INSERT INTO `portfolio item` (`title`, `image`, `content`) VALUES (? , ?, ?)");
     $new->bindValue(1, $Title);
     $new->bindValue(2, $image);
     $new->bindValue(3, $content);
     $new->execute();
-    $item_display = $new->fetchAll(PDO::FETCH_ASSOC);
 }
+
+$items = $conn->prepare("SELECT * FROM `portfolio item` ");
+$items->execute();
+$items_display = $items->fetchAll(PDO::FETCH_ASSOC);
+$num=1;
 
 
 
@@ -82,8 +86,36 @@ if (isset($_POST['sub'])) {
             <textarea name="content"></textarea>
             <br>
             <input type="submit" name="sub" class="btn btn-primary">
-
     </div>
+    <br>
+    <div class="container">
+        <h2>Current portfolio items</h2>
+        <p>you can edit or delete your items in here</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Title</th>
+                    <th>image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items_display as $item) { ?>
+                    <tr>
+                        <td><?php echo $num++; ?></td>
+                        <td><?php echo $item['title']; ?></td>
+                        <td><img style="max-width: 100px;" src="<?php echo $item['image']; ?>"></td>
+
+                        <td>
+                            <a href="edit.php?id=<?php echo $item['id']; ?>" class="btn btn-warning">edit</a>
+                            <a href="delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger">delete</a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <br><br>
 </body>
 
 <script>
