@@ -26,6 +26,7 @@ if (isset($_POST['sub'])) {
     $new->bindValue(2, $image);
     $new->bindValue(3, $content);
     $new->execute();
+    header("location:index.php");
 }
 
 $items = $conn->prepare("SELECT * FROM `portfolio item` WHERE id=?");

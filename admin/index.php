@@ -78,12 +78,12 @@ $num=1;
         <form method="post" class="form-control admin-form">
             <h4>new portfolio item</h4>
             <div style="margin-bottom: 10px;">
-                <input type="text" name="Title" placeholder="Title" style="margin-right: 10px;">
+                <input type="text" name="Title" placeholder="Title" style="margin-right: 10px;" required>
                 <input type="text" name="image" placeholder="image URL">
             </div>
 
             <br>
-            <textarea name="content"></textarea>
+            <textarea required name="content"></textarea>
             <br>
             <input type="submit" name="sub" class="btn btn-primary">
     </div>
